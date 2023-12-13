@@ -1,0 +1,21 @@
+import Seo from "@/components/core/seo";
+import Layout from "@/components/layout/layout";
+import BaseLayout from "@/components/layout/sidebar-layout";
+import UserBoat from "@/components/pages/user/dashboard/boat";
+import Navbar from "@/modules/navbar";
+
+const UserBoatPage = () => {
+  return (
+    <BaseLayout>
+      <main className="bg-secondary-100 h-screen">
+        <Seo templateTitle="Boats List" />
+        <Navbar />
+        <Layout className="flex flex-col mt-2">
+          <UserBoat />
+        </Layout>
+      </main>
+    </BaseLayout>
+  );
+};
+
+export default UserBoatPage;
