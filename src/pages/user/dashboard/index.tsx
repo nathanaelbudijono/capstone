@@ -10,7 +10,7 @@ const UserDashboardPage = () => {
       <main className="bg-secondary-100 ">
         <Seo templateTitle="Dashboard" />
         <Navbar />
-        <Layout className="flex flex-col  h-screen ">
+        <Layout className="flex flex-col max-w-5xl">
           <UserDashboard />
         </Layout>
       </main>

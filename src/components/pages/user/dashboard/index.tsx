@@ -1,36 +1,178 @@
+import StatementChart from "@/components/chart/chart";
 import Typography from "@/components/core/typography";
 import UserMenu from "@/modules/user/dashboard/menu";
+
+import { GiHarborDock } from "react-icons/gi";
+
+export type Day = "mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun";
+
+export interface DailyAmount {
+  day: Day;
+  amount: number;
+}
 
 const UserDashboard = () => {
   return (
     <main>
-      <Typography variant="h3" color="primary">
+      <Typography variant="h3" color="primary" className="mb-5">
         My Dashboard
       </Typography>
-      <section className="mt-5">
-        <UserMenu />
-        <div className="grid grid-cols-3 max-sm:grid-cols-1 gap-2">
-          {quickData?.map((item, index) => {
-            return (
-              <div
-                className="mt-3 px-6 py-3 border border-primary w-full rounded-md"
-                key={index}
-              >
-                <Typography variant="h4" color="primary">
-                  {item?.title}
-                </Typography>
-                <Typography variant="h2">{item?.value}</Typography>
-                <Typography variant="small" className="text-xs">
-                  {item?.description}
-                </Typography>
-              </div>
-            );
-          })}
-        </div>
+      <section className="bg-white px-6 py-3 rounded-md shadow-lg">
+        <section className="mt-5">
+          <UserMenu />
+          <div className="grid grid-cols-3 max-sm:grid-cols-1 gap-2">
+            {quickData?.map((item, index) => {
+              return (
+                <div
+                  className="mt-3 px-6 py-3 border border-primary w-full rounded-md bg-secondary-200"
+                  key={index}
+                >
+                  <Typography variant="h4" color="primary">
+                    {item?.title}
+                  </Typography>
+                  {index === 1 ? (
+                    <Typography variant="h2">
+                      {item?.value
+                        .toLocaleString("id-ID", {
+                          style: "currency",
+                          currency: "IDR",
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })
+                        .replace(/^(\D+)/, "Rp ")}
+                    </Typography>
+                  ) : (
+                    <Typography variant="h2">{item?.value}</Typography>
+                  )}
+
+                  <Typography variant="small" className="text-xs">
+                    {item?.description}
+                  </Typography>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+        <section className="mt-5 flex gap-2 max-sm:flex-col">
+          <div className="w-3/5 max-sm:w-full">
+            <StatementChart statement={barData as DailyAmount[]} />
+          </div>
+
+          <div className="border border-primary rounded-md px-6 py-3 w-full  bg-secondary-200">
+            <Typography variant="h4" color="primary">
+              Recent Transactions
+            </Typography>
+            <Typography variant="small" className="text-xs">
+              A list of your recent Transactions.
+            </Typography>
+            <div className="mt-3 overflow-auto ">
+              {recentTransaction.slice(0, 4).map((item, index) => {
+                return (
+                  <div
+                    className="flex justify-between items-center py-2"
+                    key={index}
+                  >
+                    <div className="flex gap-2 items-center">
+                      <GiHarborDock className="p-1 rounded-full bg-white text-3xl" />
+                      <div>
+                        <Typography variant="small">{item?.name}</Typography>
+                        <Typography variant="small" className="text-xs">
+                          {item?.email}
+                        </Typography>
+                      </div>
+                    </div>
+                    <div>
+                      <Typography variant="med" color="primary">
+                        {item?.amount
+                          .toLocaleString("id-ID", {
+                            style: "currency",
+                            currency: "IDR",
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })
+                          .replace(/^(\D+)/, "Rp ")}
+                      </Typography>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
       </section>
     </main>
   );
 };
+
+const recentTransaction = [
+  {
+    name: "PT Ruang Cipta",
+    email: "ruangcipta@gmail.com",
+    amount: 1000000,
+  },
+  {
+    name: "PT Ruang Cipta",
+    email: "ruangcipta@gmail.com",
+    amount: 1000000,
+  },
+  {
+    name: "PT Ruang Cipta",
+    email: "ruangcipta@gmail.com",
+    amount: 1000000,
+  },
+  {
+    name: "PT Ruang Cipta",
+    email: "ruangcipta@gmail.com",
+    amount: 1000000,
+  },
+  {
+    name: "PT Ruang Cipta",
+    email: "ruangcipta@gmail.com",
+    amount: 1000000,
+  },
+  {
+    name: "PT Ruang Cipta",
+    email: "ruangcipta@gmail.com",
+    amount: 1000000,
+  },
+  {
+    name: "PT Ruang Cipta",
+    email: "ruangcipta@gmail.com",
+    amount: 1000000,
+  },
+];
+
+const barData = [
+  {
+    day: "Mon",
+    amount: 300000,
+  },
+  {
+    day: "Tue",
+    amount: 1200000,
+  },
+  {
+    day: "Wed",
+    amount: 700000,
+  },
+  {
+    day: "Thu",
+    amount: 310000,
+  },
+  {
+    day: "Fri",
+    amount: 230000,
+  },
+  {
+    day: "Sat",
+    amount: 43000,
+  },
+  {
+    day: "Sun",
+    amount: 250000,
+  },
+];
+
 const quickData = [
   {
     title: "Total boats",

@@ -63,11 +63,14 @@ export function DataDockBoat<TData, TValue>({
         />
       </div>
 
-      <div className="rounded-md border">
+      <div className="rounded-md border border-primary">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow
+                key={headerGroup.id}
+                className="border-b border-primary  bg-secondary-200"
+              >
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>

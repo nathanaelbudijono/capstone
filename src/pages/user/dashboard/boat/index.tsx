@@ -10,7 +10,7 @@ const UserBoatPage = () => {
       <main className="bg-secondary-100 relative">
         <Seo templateTitle="Boats" />
         <Navbar />
-        <Layout className="flex flex-col mt-2">
+        <Layout className="flex flex-col max-w-5xl">
           <UserBoat />
         </Layout>
       </main>

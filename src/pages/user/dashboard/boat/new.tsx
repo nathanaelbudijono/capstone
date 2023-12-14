@@ -10,7 +10,7 @@ const UserNewBoatPage = () => {
       <BaseLayout>
         <Seo templateTitle="Create new boat" />
         <Navbar />
-        <Layout className="flex flex-col max-w-5xl items-center  pl-5 pr-0">
+        <Layout className="flex flex-col max-w-5xl items-center">
           <UserNewBoat />
         </Layout>
       </BaseLayout>

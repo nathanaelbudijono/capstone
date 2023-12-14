@@ -10,7 +10,7 @@ const DockIndexPage = () => {
       <main className="bg-secondary-100 relative">
         <Seo templateTitle="Docks" />
         <Navbar />
-        <Layout className="flex flex-col mt-2">
+        <Layout className="flex flex-col max-w-5xl">
           <DockIndex />
         </Layout>
       </main>

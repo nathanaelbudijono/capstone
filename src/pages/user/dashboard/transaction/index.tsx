@@ -10,7 +10,7 @@ const UserTransactionPage = () => {
       <main className="bg-secondary-100 ">
         <Seo templateTitle="User Manual" />
         <Navbar />
-        <Layout className="flex flex-col max-w-5xl pl-5 pr-0">
+        <Layout className="flex flex-col max-w-5xl">
           <UserTransaction />
         </Layout>
       </main>

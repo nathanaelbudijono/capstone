@@ -16,7 +16,7 @@ import {
 
 const UserMenu = () => {
   return (
-    <Menubar className="border border-primary">
+    <Menubar className="border border-primary bg-secondary-200">
       <MenubarMenu>
         <MenubarTrigger>File</MenubarTrigger>
         <MenubarContent className="bg-white">
