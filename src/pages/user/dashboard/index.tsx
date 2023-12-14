@@ -7,10 +7,10 @@ import Navbar from "@/modules/navbar";
 const UserDashboardPage = () => {
   return (
     <BaseLayout>
-      <main className="h-screen bg-secondary-100">
+      <main className="bg-secondary-100 ">
         <Seo templateTitle="Dashboard" />
         <Navbar />
-        <Layout className="flex flex-col max-w-5xl  pl-5 pr-0">
+        <Layout className="flex flex-col  h-screen ">
           <UserDashboard />
         </Layout>
       </main>

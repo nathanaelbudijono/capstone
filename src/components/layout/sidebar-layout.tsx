@@ -2,7 +2,7 @@ import Sidebar from "@/modules/sidebar";
 
 const BaseLayout = ({ children }: any) => {
   return (
-    <div className="layout">
+    <div className="flex relative">
       <Sidebar />
       <main className="layout__main-content">{children}</main>
     </div>

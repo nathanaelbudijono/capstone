@@ -12,8 +12,10 @@ import { BsActivity } from "react-icons/bs";
 import { CiSettings } from "react-icons/ci";
 import { RiShutDownLine } from "react-icons/ri";
 import { Button } from "@/components/buttons/button";
+import { useRouter } from "next/router";
 
 export default function Navbar() {
+  const router = useRouter();
   return (
     <main
       className={clsx("px-16 max-md:px-6 sticky top-0 z-10 py-2 bg-primary")}
@@ -39,15 +41,20 @@ export default function Navbar() {
                   </Typography>
                 </section>
                 <section className="mt-2">
-                  {links?.map(({ icon: Icon, name }) => {
+                  {links?.map(({ icon: Icon, name, link }) => {
                     return (
-                      <Button
-                        variant="ghost"
-                        className="flex items-center gap-2 mb-1 w-full justify-start"
-                      >
-                        <Icon />
-                        <Typography variant="small">{name}</Typography>
-                      </Button>
+                      <div key={name}>
+                        <Button
+                          variant="ghost"
+                          className="flex items-center gap-2 mb-1 w-full justify-start"
+                          onClick={() => {
+                            router.push(link);
+                          }}
+                        >
+                          <Icon />
+                          <Typography variant="small">{name}</Typography>
+                        </Button>
+                      </div>
                     );
                   })}
                   <Button
@@ -71,13 +78,16 @@ const links = [
   {
     icon: CiUser,
     name: "Edit Profile",
+    link: "http://localhost:3000/user/dashboard/profile",
   },
   {
     icon: BsActivity,
     name: "Activity Log",
+    link: "http://localhost:3000/user/dashboard/activity",
   },
   {
     icon: CiSettings,
     name: "Account Settings",
+    link: "http://localhost:3000/user/dashboard/settings",
   },
 ];

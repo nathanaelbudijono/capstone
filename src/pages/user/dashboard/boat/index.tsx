@@ -7,8 +7,8 @@ import Navbar from "@/modules/navbar";
 const UserBoatPage = () => {
   return (
     <BaseLayout>
-      <main className="bg-secondary-100 h-screen">
-        <Seo templateTitle="Boats List" />
+      <main className="bg-secondary-100 relative">
+        <Seo templateTitle="Boats" />
         <Navbar />
         <Layout className="flex flex-col mt-2">
           <UserBoat />

@@ -7,8 +7,9 @@ import { useSidebarContext } from "@/hooks/useSidebar";
 import { AiOutlineHome } from "react-icons/ai";
 import { TiContacts } from "react-icons/ti";
 import { IoIosBoat } from "react-icons/io";
-import { FiMail } from "react-icons/fi";
+import { PiMoneyLight } from "react-icons/pi";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+import { FaAnchor } from "react-icons/fa";
 
 import { Button } from "@/components/buttons/button";
 
@@ -18,7 +19,7 @@ const Sidebar = () => {
     React.useContext(useSidebarContext);
 
   return (
-    <div className="sidebar__wrapper sticky top-0 bg-primary">
+    <div className="sticky top-0 bg-primary">
       <Button variant="default" className="btn" onClick={toggleSidebarcollapse}>
         {isCollapsed ? <MdKeyboardArrowRight /> : <MdKeyboardArrowLeft />}
       </Button>
@@ -77,13 +78,13 @@ const sidebarItems = [
     icon: IoIosBoat,
   },
   {
-    name: "Mails",
-    href: "/mails",
-    icon: FiMail,
+    name: "Docks",
+    href: "/user/dashboard/dock",
+    icon: FaAnchor,
   },
   {
-    name: "Contact",
-    href: "/contact",
-    icon: TiContacts,
+    name: "Transaction",
+    href: "/user/dashboard/transaction",
+    icon: PiMoneyLight,
   },
 ];

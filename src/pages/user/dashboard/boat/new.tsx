@@ -6,15 +6,15 @@ import Navbar from "@/modules/navbar";
 
 const UserNewBoatPage = () => {
   return (
-    <BaseLayout>
-      <main className="h-screen bg-secondary-100">
+    <main className="bg-secondary-100">
+      <BaseLayout>
         <Seo templateTitle="Create new boat" />
         <Navbar />
         <Layout className="flex flex-col max-w-5xl items-center  pl-5 pr-0">
           <UserNewBoat />
         </Layout>
-      </main>
-    </BaseLayout>
+      </BaseLayout>
+    </main>
   );
 };
 

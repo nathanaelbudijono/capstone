@@ -1,10 +1,10 @@
 import Typography from "@/components/core/typography";
-import { DataTable } from "@/components/table/data-table";
-import { columns } from "@/modules/boat-user/columns";
+import { DataTableBoatUser } from "@/modules/table/boat-user/data-table";
+import { columns } from "@/modules/table/boat-user/columns";
 
 const UserBoat = () => {
   return (
-    <main>
+    <main className={`${boatData.length % 5 === 0 ? "h-full" : "h-screen"}`}>
       <Typography variant="h3" color="primary">
         Boat's Owned
       </Typography>
@@ -12,7 +12,7 @@ const UserBoat = () => {
         List of boats owned or active.
       </Typography>
       <div className="container mx-auto py-5">
-        <DataTable columns={columns} data={boatData} />
+        <DataTableBoatUser columns={columns} data={boatData} />
       </div>
     </main>
   );

@@ -236,7 +236,7 @@ const RegisterUser = () => {
                       </PopoverContent>
                     </Popover>
                     <FormDescription>
-                      Date of birth must be valid.
+                      You cannot change your date of birth.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -259,7 +259,9 @@ const RegisterUser = () => {
                       {...field}
                     />
                   </FormControl>
-                  <FormDescription>Email must be valid</FormDescription>
+                  <FormDescription>
+                    You cannot change your email.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -308,7 +310,11 @@ const RegisterUser = () => {
             </div>
             <div className="flex justify-end w-full">
               <Button variant="default" type="submit" className="w-1/4">
-                {isLoading ? <AiOutlineLoading /> : "Register"}
+                {isLoading ? (
+                  <AiOutlineLoading className="animate-spin" />
+                ) : (
+                  "Register"
+                )}
               </Button>
             </div>
           </form>
@@ -328,7 +334,7 @@ const FormSchema = z.object({
   lastName: z.string().min(5, {
     message: "Last name must be at least 5 characters.",
   }),
-  phoneNumber: z.number().min(11, {
+  phoneNumber: z.coerce.number().min(11, {
     message: "Phone Number must be at least 11 digits.",
   }),
 

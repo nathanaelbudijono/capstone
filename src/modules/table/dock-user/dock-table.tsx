@@ -17,16 +17,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/table/table";
-import { Button } from "../buttons/button";
-import { Input } from "../forms/input";
-import Link from "next/link";
+import { Button } from "../../../components/buttons/button";
+import { Input } from "../../../components/forms/input";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export function DataTable<TData, TValue>({
+export function DataDockBoat<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -51,23 +50,18 @@ export function DataTable<TData, TValue>({
 
   return (
     <main>
-      <section className=" flex justify-between">
-        <div className="flex items-center mb-5">
-          <Input
-            placeholder="Filter kapal..."
-            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-            onChange={(event) =>
-              table.getColumn("name")?.setFilterValue(event.target.value)
-            }
-            className="max-w-sm"
-          />
-        </div>
-        <div>
-          <Button variant="default">
-            <Link href="boat/new">Create new Boat</Link>
-          </Button>
-        </div>
-      </section>
+      <div className="flex items-center mb-5">
+        <Input
+          placeholder="Search by boat name..."
+          value={
+            (table.getColumn("boatName")?.getFilterValue() as string) ?? ""
+          }
+          onChange={(event) =>
+            table.getColumn("boatName")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
+      </div>
 
       <div className="rounded-md border">
         <Table>

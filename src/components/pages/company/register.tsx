@@ -252,7 +252,7 @@ const RegisterProvider = () => {
               )}
             />
             <div>
-              <UnstyledLink href="/provider/login">
+              <UnstyledLink href="/company/login">
                 Already have a company account?
               </UnstyledLink>
             </div>

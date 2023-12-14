@@ -127,7 +127,11 @@ const LoginPageUser = () => {
             </div>
             <div className="flex justify-end w-full">
               <Button variant="default" type="submit" className="w-1/4">
-                {isLoading ? <AiOutlineLoading /> : "Login"}
+                {isLoading ? (
+                  <AiOutlineLoading className="animate-spin" />
+                ) : (
+                  "Login"
+                )}
               </Button>
             </div>
           </form>
