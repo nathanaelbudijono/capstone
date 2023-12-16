@@ -1,3 +1,5 @@
+import * as React from "react";
+
 import Typography from "@/components/core/typography";
 import {
   Popover,
@@ -13,9 +15,28 @@ import { CiSettings } from "react-icons/ci";
 import { RiShutDownLine } from "react-icons/ri";
 import { Button } from "@/components/buttons/button";
 import { useRouter } from "next/router";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function Navbar() {
   const router = useRouter();
+  const logout = async () => {
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/authentication/logout`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      if (res.status === 200) {
+        router.push("http://localhost:3000/");
+      }
+    } catch (err: any) {
+      toast.error(err?.response?.data?.message);
+    }
+  };
+
   return (
     <main
       className={clsx("px-16 max-md:px-6 sticky top-0 z-10 py-2 bg-primary")}
@@ -29,9 +50,6 @@ export default function Navbar() {
               </PopoverTrigger>
               <PopoverContent className="bg-secondary-100 w-full">
                 <section className="border-b pb-2 border-primary">
-                  <Typography variant="p" color="primary" className="pl-4 mb-1">
-                    John Doe
-                  </Typography>
                   <Typography
                     variant="small"
                     className="text-xs pl-4"
@@ -41,6 +59,18 @@ export default function Navbar() {
                   </Typography>
                 </section>
                 <section className="mt-2">
+                  <Button
+                    variant="ghost"
+                    className="flex gap-2 items-center w-full justify-start"
+                    onClick={() => {
+                      router.push(
+                        `http://localhost:3000/user/dashboard/profile/`
+                      );
+                    }}
+                  >
+                    <CiUser />
+                    <Typography variant="small">My Profile</Typography>
+                  </Button>
                   {links?.map(({ icon: Icon, name, link }) => {
                     return (
                       <div key={name}>
@@ -60,6 +90,7 @@ export default function Navbar() {
                   <Button
                     variant="ghost"
                     className="flex gap-2 items-center w-full justify-start"
+                    onClick={logout}
                   >
                     <RiShutDownLine />
                     <Typography variant="small">Logout</Typography>
@@ -75,11 +106,6 @@ export default function Navbar() {
 }
 
 const links = [
-  {
-    icon: CiUser,
-    name: "Edit Profile",
-    link: "http://localhost:3000/user/dashboard/profile",
-  },
   {
     icon: BsActivity,
     name: "Activity Log",

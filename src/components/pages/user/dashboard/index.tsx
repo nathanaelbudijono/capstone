@@ -1,6 +1,11 @@
+import * as React from "react";
 import StatementChart from "@/components/chart/chart";
 import Typography from "@/components/core/typography";
+import { userType } from "@/lib/slices/user-slices";
+import { useAppStore } from "@/lib/store";
+
 import UserMenu from "@/modules/user/dashboard/menu";
+import { format } from "date-fns";
 
 import { GiHarborDock } from "react-icons/gi";
 
@@ -11,12 +16,43 @@ export interface DailyAmount {
   amount: number;
 }
 
-const UserDashboard = () => {
+interface userDashboardProps {
+  name: string;
+  id: string;
+}
+const UserDashboard = ({ name, id }: userDashboardProps) => {
+  const { boats, getUserBoat } = useAppStore();
+  React.useEffect(() => {
+    getUserBoat(id);
+  }, []);
+  const boatLength = boats?.length;
+  const quickData = [
+    {
+      title: "Total boats",
+      value: boatLength,
+      description: "Boats that you own.",
+    },
+    {
+      title: "Wallet Balance",
+      value: 1332233,
+      description: "Lorem ipsum dolor si amet",
+    },
+    {
+      title: "Incoming Bills",
+      value: 13,
+      description: "Lorem ipsum dolor si amet",
+    },
+  ];
+  const today = format(new Date(), "EEEE, dd MMMM yyyy");
   return (
-    <main>
-      <Typography variant="h3" color="primary" className="mb-5">
-        My Dashboard
-      </Typography>
+    <main className="h-screen max-sm:h-full">
+      <div className="flex justify-between items-center">
+        <Typography variant="h3" color="primary" className="mb-5">
+          {name}
+        </Typography>
+        <Typography variant="med">{today}</Typography>
+      </div>
+
       <section className="bg-white px-6 py-3 rounded-md shadow-lg">
         <section className="mt-5">
           <UserMenu />
@@ -31,7 +67,7 @@ const UserDashboard = () => {
                     {item?.title}
                   </Typography>
                   {index === 1 ? (
-                    <Typography variant="h2">
+                    <Typography variant="h2" className="whitespace-nowrap">
                       {item?.value
                         .toLocaleString("id-ID", {
                           style: "currency",
@@ -103,7 +139,6 @@ const UserDashboard = () => {
     </main>
   );
 };
-
 const recentTransaction = [
   {
     name: "PT Ruang Cipta",
@@ -190,4 +225,5 @@ const quickData = [
     description: "Lorem ipsum dolor si amet",
   },
 ];
+
 export default UserDashboard;

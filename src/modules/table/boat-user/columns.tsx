@@ -23,28 +23,36 @@ export type boatType = {
 
 export const columns: ColumnDef<boatType>[] = [
   {
-    accessorKey: "name",
-    header: "Name",
+    accessorKey: "namaKapal",
+    header: "Nama",
   },
   {
-    accessorKey: "tipeKapal",
-    header: "Tipe Kapal",
+    accessorKey: "jenisKapal",
+    header: "Type",
   },
   {
     accessorKey: "panjangKapal",
-    header: "Panjang Kapal",
+    header: "Length",
   },
   {
     accessorKey: "kapasitasKapal",
-    header: "Kapasitas Kapal",
+    header: "Capacity",
+  },
+  {
+    accessorKey: "kapasitasKapal",
+    header: "Chassis",
   },
   {
     accessorKey: "kapalAktif",
     header: "Kapal Aktif",
+    cell: ({ row }) => (
+      <span>{!row ? "Sedang Beroperasi" : "Tidak Beroperasi"}</span>
+    ),
   },
   {
     accessorKey: "dermaga",
     header: "Dermaga",
+    cell: ({ row }) => <span>{!row ? "Dermaga x" : "Tidak Beroperasi"}</span>,
   },
   {
     id: "id",

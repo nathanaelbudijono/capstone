@@ -20,6 +20,7 @@ import {
 import { Button } from "../../../components/buttons/button";
 import { Input } from "../../../components/forms/input";
 import Link from "next/link";
+import Typography from "@/components/core/typography";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -55,9 +56,11 @@ export function DataTableBoatUser<TData, TValue>({
         <div className="flex items-center mb-5">
           <Input
             placeholder="Search by boat name..."
-            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+            value={
+              (table.getColumn("namaKapal")?.getFilterValue() as string) ?? ""
+            }
             onChange={(event) =>
-              table.getColumn("name")?.setFilterValue(event.target.value)
+              table.getColumn("namaKapal")?.setFilterValue(event.target.value)
             }
             className="max-w-sm"
           />
@@ -122,24 +125,29 @@ export function DataTableBoatUser<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
-      </div>
+      <section className="flex justify-between items-center">
+        <Typography variant="small" className="text-xs">
+          Showing {table.getRowModel().rows.length} out of {data.length} Boat{" "}
+        </Typography>
+        <div className="flex items-center justify-end space-x-2 py-4">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            Next
+          </Button>
+        </div>
+      </section>
     </main>
   );
 }

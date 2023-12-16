@@ -35,8 +35,8 @@ const RegisterProvider = () => {
 
   //----- # Start Region Submit Form # -----//
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    const companyName = data.companyName;
-    const companyId = data.companyId;
+    const name = data.companyName;
+    const companyID = data.companyId;
     const city = data.city;
     const country = data.country;
     const password = data.password;
@@ -46,14 +46,13 @@ const RegisterProvider = () => {
     try {
       setIsLoading(true);
       if (confirmationPassword === password) {
-        const res = await axios.post(`${nextAPIUrl}/hello`, {
-          companyName,
-          companyId,
+        const res = await axios.post(`${nextAPIUrl}/company/createcompany`, {
+          name,
+          companyID,
           city,
           country,
           password,
           email,
-          confirmationPassword,
           phoneNumber,
         });
         await toast.promise(Promise.resolve(res.data), {
@@ -122,7 +121,7 @@ const RegisterProvider = () => {
                       Company ID
                     </Typography>
                     <FormControl>
-                      <Input placeholder="50022153" type="number" {...field} />
+                      <Input placeholder="50022153" type="text" {...field} />
                     </FormControl>
                     <FormDescription>Company ID must be valid.</FormDescription>
                     <FormMessage />
@@ -177,11 +176,7 @@ const RegisterProvider = () => {
                       Phone Number
                     </Typography>
                     <FormControl>
-                      <Input
-                        placeholder="08518873950"
-                        type="number"
-                        {...field}
-                      />
+                      <Input placeholder="08518873950" type="text" {...field} />
                     </FormControl>
                     <FormDescription>
                       Phone number must be valid.
@@ -275,16 +270,13 @@ const FormSchema = z.object({
   companyName: z.string().min(1, {
     message: "Company name must be at least 1 characters.",
   }),
-  address: z.string().min(1, {
-    message: "Address must be at least 1 characters.",
-  }),
   country: z.string().min(3, {
     message: "Country name must be at least 5 characters.",
   }),
   city: z.string().min(5, {
     message: "City name must be at least 5 characters.",
   }),
-  phoneNumber: z.number().min(5, {
+  phoneNumber: z.string().min(5, {
     message: "Phone number must be at least 5 digits.",
   }),
   password: z.string().min(5, {
@@ -293,7 +285,7 @@ const FormSchema = z.object({
   confirmationPassword: z.string().min(5, {
     message: "Confirmation Password must be at least 5 characters.",
   }),
-  companyId: z.number().min(5, {
+  companyId: z.string().min(5, {
     message: "Company ID must be at least 5 digits.",
   }),
 });

@@ -57,7 +57,7 @@ const RegisterUser = () => {
     try {
       setIsLoading(true);
       if (confirmationPassword === password) {
-        const res = await axios.post(`${nextAPIUrl}/hello`, {
+        const res = await axios.post(`${nextAPIUrl}/user/createuser`, {
           firstName,
           lastName,
           phoneNumber,
@@ -65,7 +65,6 @@ const RegisterUser = () => {
           country,
           password,
           email,
-          confirmationPassword,
           dob,
         });
         await toast.promise(Promise.resolve(res.data), {
@@ -146,7 +145,7 @@ const RegisterUser = () => {
                     <FormControl>
                       <Input
                         placeholder="085100875060"
-                        type="number"
+                        type="text"
                         {...field}
                       />
                     </FormControl>
@@ -334,7 +333,7 @@ const FormSchema = z.object({
   lastName: z.string().min(5, {
     message: "Last name must be at least 5 characters.",
   }),
-  phoneNumber: z.coerce.number().min(11, {
+  phoneNumber: z.string().min(11, {
     message: "Phone Number must be at least 11 digits.",
   }),
 

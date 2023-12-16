@@ -37,8 +37,14 @@ import * as z from "zod";
 import { toast } from "react-toastify";
 import { nextAPIUrl } from "@/constant/env";
 import axios from "axios";
+import { useAppStore } from "@/lib/store";
 
-const UserNewBoat = () => {
+interface userNewBoatType {
+  id: string;
+}
+
+const UserNewBoat = ({ id }: userNewBoatType) => {
+  console.log(id);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -57,28 +63,36 @@ const UserNewBoat = () => {
       const color = data.color;
       const chassis = data.chassis;
       const noMesin = data.noMesin;
+      axios.defaults.withCredentials = true;
       await toast.promise(
-        axios.post(`${nextAPIUrl}/hello`, {
-          boatName,
-          tipeKapal,
-          registrationNumber,
-          panjangKapal,
-          kapasitasKapal,
-          tanggalBuat,
-          color,
-          chassis,
-          noMesin,
-        }),
+        axios.post(
+          `${nextAPIUrl}/kapal/user/createboat`,
+          {
+            id,
+            boatName,
+            tipeKapal,
+            registrationNumber,
+            panjangKapal,
+            kapasitasKapal,
+            tanggalBuat,
+            color,
+            chassis,
+            noMesin,
+          },
+          {
+            withCredentials: true,
+          }
+        ),
         {
           pending: "Creating new boat..",
           success: "Successfully created new boat!",
           error: "Failed to create new boat!",
         }
       );
+      form.reset();
     } catch (err: any) {
       toast.error(err?.response?.data?.message);
     } finally {
-      form.reset();
       setIsLoading(false);
     }
   }
@@ -124,7 +138,7 @@ const UserNewBoat = () => {
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger className="border-primary border bg-white text-typography-400">
+                      <SelectTrigger className="border-primary border bg-white text-typography-800">
                         <SelectValue placeholder="Select a boat type." />
                       </SelectTrigger>
                     </FormControl>

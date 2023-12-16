@@ -42,10 +42,17 @@ const LoginPageUser = () => {
     const password = data.password;
     try {
       setIsLoading(true);
-      const res = await axios.post(`${nextAPIUrl}/hello`, {
-        email,
-        password,
-      });
+      const res = await axios.post(
+        `${nextAPIUrl}/authentication/roleuser`,
+        {
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+
       if (res.status === 200) router.push("/user/dashboard");
     } catch (err: any) {
       toast.error(err?.response?.data?.message);

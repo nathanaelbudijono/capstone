@@ -1,10 +1,10 @@
 import Typography from "@/components/core/typography";
 import { DataTableBoatUser } from "@/modules/table/boat-user/data-table";
-import { columns } from "@/modules/table/boat-user/columns";
+import { boatType, columns } from "@/modules/table/boat-user/columns";
 
-const UserBoat = () => {
+const UserBoat = ({ boats }: { boats: boatType[] }) => {
   return (
-    <main className={`${boatData.length % 5 === 0 ? "h-full" : "h-screen"}`}>
+    <main className={`${boats?.length % 5 === 0 ? "h-full" : "h-screen"}`}>
       <Typography variant="h3" color="primary">
         Boat's Owned
       </Typography>
@@ -12,66 +12,10 @@ const UserBoat = () => {
         List of boats owned or active.
       </Typography>
       <div className="container mx-auto py-5">
-        <DataTableBoatUser columns={columns} data={boatData} />
+        <DataTableBoatUser columns={columns} data={boats} />
       </div>
     </main>
   );
 };
 
-const boatData = [
-  {
-    id: "12325j2",
-    name: "Kapal 1",
-    tipeKapal: "Tipe 1",
-    panjangKapal: "4",
-    kapasitasKapal: "5",
-    kapalAktif: "Aktif",
-    dermaga: "Dermaga 1",
-  },
-  {
-    id: "1232245j2",
-    name: "Kapal 2",
-    tipeKapal: "Tipe 1",
-    panjangKapal: "4",
-    kapasitasKapal: "5",
-    kapalAktif: "Aktif",
-    dermaga: "Dermaga 1",
-  },
-  {
-    id: "12322",
-    name: "Kapal 3",
-    tipeKapal: "Tipe 1",
-    panjangKapal: "4",
-    kapasitasKapal: "5",
-    kapalAktif: "Aktif",
-    dermaga: "Dermaga 1",
-  },
-  {
-    id: "1625j2",
-    name: "Kapal 4",
-    tipeKapal: "Tipe 1",
-    panjangKapal: "4",
-    kapasitasKapal: "5",
-    kapalAktif: "Aktif",
-    dermaga: "Dermaga 1",
-  },
-  {
-    id: "162535j2",
-    name: "Kapal 45",
-    tipeKapal: "Tipe 1",
-    panjangKapal: "4",
-    kapasitasKapal: "5",
-    kapalAktif: "Aktif",
-    dermaga: "Dermaga 1",
-  },
-  {
-    id: "164225j2",
-    name: "Kapal 6",
-    tipeKapal: "Tipe 1",
-    panjangKapal: "4",
-    kapasitasKapal: "5",
-    kapalAktif: "Aktif",
-    dermaga: "Dermaga 1",
-  },
-];
 export default UserBoat;

@@ -42,11 +42,11 @@ const LoginProvider = () => {
     const password = data.password;
     try {
       setIsLoading(true);
-      const res = await axios.post(`${nextAPIUrl}/hello`, {
+      const res = await axios.post(`${nextAPIUrl}/authentication/rolecompany`, {
         email,
         password,
       });
-      if (res.status === 200) router.push("/user/dashboard");
+      if (res.status === 200) router.push("/company/dashboard");
     } catch (err: any) {
       toast.error(err?.response?.data?.message);
     } finally {

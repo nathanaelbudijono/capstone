@@ -15,6 +15,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+
 import { Input } from "@/components/forms/input";
 
 import { AiOutlineLoading } from "react-icons/ai";
@@ -23,13 +24,40 @@ import { toast } from "react-toastify";
 import { nextAPIUrl } from "@/constant/env";
 import axios from "axios";
 import DropzoneInput from "@/components/forms/dropzone";
+import { useAppStore } from "@/lib/store";
 
-const UserUpdateProfile = () => {
+interface updateType {
+  slug: string;
+}
+
+const UserUpdateProfile = ({ slug }: updateType) => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-
+  const { getProfile, profile } = useAppStore();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
+
+  React.useEffect(() => {
+    getProfile(slug);
+    form.reset({
+      firstName: profile?.data?.firstName,
+      lastName: profile?.data?.lastName,
+      phoneNumber: profile?.data?.phoneNumber,
+      city: profile?.data?.city,
+      country: profile?.data?.country,
+    });
+  }, [slug]);
+
+  if (!profile?.data) {
+    return (
+      <main className="h-screen flex justify-center items-center flex-col gap-3">
+        <AiOutlineLoading className="animate-spin text-5xl max-md:text-4xl max-sm:text-3xl" />
+        <Typography variant="h4" color="primary" className="text-center">
+          Hold on...
+        </Typography>
+      </main>
+    );
+  }
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     setIsLoading(true);
@@ -38,9 +66,11 @@ const UserUpdateProfile = () => {
     const city = data.city;
     const country = data.country;
     const phoneNumber = data.phoneNumber;
+    const id = profile?.data?.id;
     try {
       await toast.promise(
-        axios.post(`${nextAPIUrl}/hello`, {
+        axios.post(`${nextAPIUrl}/user/updateuser`, {
+          id,
           firstName,
           lastName,
           city,
@@ -67,9 +97,8 @@ const UserUpdateProfile = () => {
       <section className="shadow-lg px-6 py-3 w-full rounded-md mb-5">
         <Form {...form}>
           <form
-            // eslint-disable-next-line @typescript-eslint/no-misused-promises
-            onSubmit={form.handleSubmit(onSubmit)}
             className="flex gap-3 w-full flex-col"
+            onSubmit={form.handleSubmit(onSubmit)}
           >
             <FormField
               control={form.control}
@@ -182,7 +211,8 @@ const UserUpdateProfile = () => {
                 </FormItem>
               )}
             />
-            <Button variant="default">
+
+            <Button variant="default" type="submit">
               {isLoading ? (
                 <AiOutlineLoading className="animate-spin" />
               ) : (
